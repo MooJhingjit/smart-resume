@@ -3,21 +3,19 @@
     <div class="columns d-flex d-flex-column">
       <div class="profile column col-12 text-center">
         <div class="img-info">
-          <img alt="" width="160" height="160" class="s-circle width-full avatar-before-user-status" src="https://avatars0.githubusercontent.com/u/26850191?s=460&amp;v=4">
+          <img alt="" class="s-circle width-full avatar-before-user-status" src="https://instagram.fbkk22-2.fna.fbcdn.net/vp/a7e8fe06ad23cd01a4b8884b522dcdcf/5D212C7B/t51.2885-15/sh0.08/e35/s640x640/34299015_1898652000433661_4794453429676146688_n.jpg?_nc_ht=instagram.fbkk22-2.fna.fbcdn.net">
         </div>
         <div class="name-info">
-          <p class="h5">Pokkrong Jhingjit (moo)</p>
+          <p class="h5">Pokkrong Jhingjit</p>
           <p class="h6">Full stack developer</p>
         </div>
       </div>
       <div class="profile-detail column col-12 d-flex d-flex-column">
         <div class="menu-list">
           <dl class="list">
-            <dd><i class="fas fa-address-book"></i> About me</dd>
-            <dd><i class="fas fa-user-graduate"></i> Education</dd>
-            <dd class="active"><i class="fas fa-user-tie"></i> Work experience</dd>
-            <dd><i class="fas fa-thumbs-up"></i> Skills</dd>
-            <dd><i class="fas fa-tasks"></i> Portfolio</dd>
+            <router-link tag="dd" active-class="active" :to="{ name: item.name } " :key="index" v-for="(item, index) in local.menuLists">
+              <i :class="item.icon"></i> {{item.title}}
+            </router-link>
           </dl>
         </div>
         <div class="footer text-center d-flex d-flex-column text-gray">
@@ -56,7 +54,14 @@ export default {
   data () {
     return {
       local: {
-        isShowMenu: false
+        isShowMenu: false,
+        menuLists: [
+          {name: 'AboutMe', title: 'About me', icon: 'fas fa-address-book', isActive: false},
+          {name: 'Education', title: 'Education', icon: 'fas fa-user-graduate', isActive: false},
+          {name: 'WorkExperience', title: 'Work experience', icon: 'fas fa-user-tie', isActive: false},
+          {name: 'Skill', title: 'Skills', icon: 'fas fa-thumbs-up', isActive: false},
+          {name: 'Portfolio', title: 'Portfolio', icon: 'fas fa-tasks', isActive: false}
+        ]
       }
     }
   },
@@ -80,17 +85,20 @@ export default {
   height: 100vh;
 }
 .menu-side{
+  position: fixed;
   &>.columns{
     height: 100%;
   }
   @media only screen and (min-width: $size-md) { 
     height: 100vh;
+    position: fixed;
+    min-width: 300px;
+    max-width: 300px;
   }
   transition: all 0.5s ease;
-  position: relative;
   z-index: 2;
   padding: 15px;
-  height: 200px;
+  height: 153px;
   overflow: hidden;
   .profile{
     flex: inherit;
@@ -100,12 +108,21 @@ export default {
     // justify-content: center;
     .img-info{
       flex:0;
+      height: 130px;
+      width: 130px;
+      img{
+        width: inherit;
+        height: inherit;
+      }
     }
     .name-info{
       flex:1;
       display: flex;
       flex-direction: column;
       align-items: center;
+      p{
+        margin: 5px 0;
+      }
     }
     @media only screen and (min-width: $size-md) {
       flex-direction: column;
@@ -130,24 +147,40 @@ export default {
             text-align: center
           }
           i{
-            font-size: 1.4em;
+            font-size: 1.2em;
             margin-right: 10px;
           }
           dd{
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
             font-size: 1em;
-            margin: 20px 0 ;
+            padding: 20px 0;
             color: $light-color;
+            // text-align: center;
+            margin: 0;
+            height: 65px;
             &:hover{
-              margin-left: 5px;
-              color: $primary-color
+              // margin-left: 5px;
+              font-size: 1.2em;
+            }
+            a{
+              text-decoration: none;
+              color: $light-color !important;
             }
           }
-          dd.active{
-            margin-left: 5px;
-            color: $primary-color
+          dd.router-link-exact-active{
+            font-size: 1.2em;
+            i{
+              color: #ffff93;
+            }
           }
+          dd.router-link-exact-active:before{
+            content: "\00BB";
+            margin-right: 10px;
+            font-size: 1em;
+            color: #ffff93;
+          }
+          
         }
       }
       .footer{

@@ -11,11 +11,7 @@ module.exports = {
         // @ is an alias to /src
         '@Assets': resolve ('src/assets'),
         '@Views': resolve ('src/views'),
-        // '@Layouts': resolve('src/Layouts'),
         '@Components': resolve ('src/components'),
-        // '@Libraries': resolve ('src/Libraries'),
-        // '@Config': resolve ('src/Config'),
-        // '@Services': resolve ('src/Services')
       }
     }
   }
